@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta id="viewport" name="viewport" content="width=320, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Mobage Games">
+        <title>Games</title>
+        <link href='http://fonts.googleapis.com/css?family=Quicksand|Gabriela|Gruppo' rel='stylesheet' type='text/css'>
+        <script src="//code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+        <script src="js/jquery.lazyload.min.js" type="text/javascript"></script>
+        <script src="js/jquery.grid-a-licious.min.js" type="text/javascript"></script>
+<!--         <script src="js/jquery.qrcode.min.js" type="text/javascript"></script> -->
+        <style>
+/*
+        font-family: 'Nixie One', cursive;
+font-family: 'Quicksand', sans-serif;
+font-family: 'Gabriela', serif;
+font-family: 'Gruppo', cursive;
+*/
+        html, body { margin: 0; background-color: #556284; font-family: sans-serif; font-size: 14px; letter-spacing: 1px; }
+        body { background-color: #777777; }/*  background-image: url('http://downloads.dvq.co.nz/assets/img/downloads/flying-colors/1920x1200.png'); } */
+        h1 { font-family: 'Quicksand', serif; width: 100%; height: 50px; line-height: 50px; font-size: 20px; font-style: normal; font-weight: normal; color: #e5e5e5; background-color: rgba(42, 42, 42, 0.9); margin: 0 0 0 0; text-align: center; letter-spacing: -1px;  box-shadow: 0px 2px 9px black; position: fixed; top: 0; left: 0; z-index: 1; }
+        .sp h1 { position: relative; }
+        #game-wrapper { padding: 60px 0 0 0; width: auto; min-height: 100%; }
+        .sp #game-wrapper { padding: 10px 0 0 0; }
+        .game-container { background-color: #f8f8f8; border-radius: 4px; overflow: hidden; box-shadow: 0px 2px 9px black; position: relative; }
+        .game-header { background-color: #2a2a2a; /* #cdcdcd */ padding: 10px; min-height: 80px; }
+        .game-thumbnail { width: 80px; float: left; margin: 0 10px 0 0; border-radius: 16px; overflow: hidden; box-shadow: 0px 4px 8px black; } /* margin: 10px; } */
+        .game-title { width: auto; float: none; margin: 0; } /*  margin: 10px 10px 10px 0; } */
+        .game-star { width: 20px; height: 20px; float: right; text-align: right; }
+        .game-title h2 { font-size: 16px; margin: 0; line-height: 20px; text-align: left; } 
+        .game-title h2 a { color: #E2AA74;/* #454A58; */ font-weight: bold; text-decoration: none; }
+        .game-title p { font-size:10px; color: #d6d6d6 ; /* #474747; */ margin: 0; line-height: 16px; font-weight: bold; text-align: justify; }
+        
+        .premium .game-header { background-color: #E14562; }
+        .premium .game-title h2 a { color: #F5C125; }
+        .premium .game-title p { color: #ECC7C7; }
+        
+        .game-image { clear: both; background-color: #101010; height: 140px; position: relative; overflow: hidden; }
+        .game-image img { display: block; width: 300px !important; height: 140px !important; }
+        .game-image > div { display: block; width: 140px !important; height: 140px !important; margin: 0 auto; }
+        .game-image > div > img { display: block; width: 140px !important; height: 140px !important; }
+        .game-description { margin: 10px; font-size: 12px; color: #393939; line-height: 20px; font-weight: bold; text-align: justify; }
+        .game-genre { font-family: 'Gabriela', serif; margin: 30px 10px 4px; font-size: 10px; color: #393939; line-height: 16px; letter-spacing: 0px; }
+        .game-genre span { background-color: #454A58; padding: 4px; border-radius: 3px; color: white; }
+        .game-sap { margin: 5px 10px 0 10px; font-size: 10px; color: #393939; line-height: 18px; letter-spacing: 1px; text-align: justify; }
+        .game-start { margin: 10px; font-size: 14px; color: #e8e8e8; line-height: 42px; letter-spacing: 1px; }
+        .game-start a { width: 100%; height: 42px; background-color: #6b83a4; font-weight: bold; text-align: center; display: block; text-decoration: none; color: #ffffff; border-radius: 4px; box-shadow: inset 0px -2px 0px #475576;  }
+        .game-device { margin: 0px 10px 5px 10px; font-size: 10px; color: #393939; line-height: 18px; letter-spacing: 1px; text-align: justify;  }
+        .game-url { margin: 0 10px 10px 10px; font-size: 9px; color: #393939; line-height: 18px; letter-spacing: 1px; }
+        .game-url a { color: #454A58; font-weight: normal; text-decoration: none; }
+        .game-supports { margin: 10px; height: 12px; font-size: 12px; color: #393939; line-height: 18px; letter-spacing: 1px; }
+        .game-supports img { width: 12px !important; float: left; margin: 0 12px 0 0; }
+        .game-qrcode-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); opacity: 0; }
+        .game-container.on .game-qrcode-wrapper { opacity: 1; }
+        .game-qrcode { position: absolute; top: 50%; left: 50%; margin: -70px 0 0 -70px; }
+        .game-memo { margin: 0 10px 10px 10px; font-size: 10px; background-color: #e9e9e9; border-radius: 4px; padding: 6px; }
+        .game-memo-sp { margin: 0 10px 10px 10px; font-size: 10px; background-color: #e9e9e9; border-radius: 4px; padding: 6px; }
+        .game-memo-header { text-align: center; margin: 0 0 5px 0; }
+        .game-memo-buttons { -webkit-box-pack: justify; display: -webkit-box; }
+        .game-memo-buttons a { width: 32%; height: 42px; line-height: 42px; text-align:center; display: block; border-radius: 4px; color: white; font-family: 'Gabriela', serif; text-decoration: none; font-size: 16px; padding: 0; }
+        .game-memo-sp .game-memo-buttons a { width: 24%; }
+        .game-memo-buttons a.button-twitter { background-color: #00a3d9; box-shadow: inset 0px -2px 0px #1E5C71; }
+        .game-memo-buttons a.button-facebook { background-color: #36549c; box-shadow: inset 0px -2px 0px #222E4D; }
+        .game-memo-buttons a.button-google { background-color: #dd4b39; box-shadow: inset 0px -2px 0px #7E3D35; }
+        .game-memo-buttons a.button-line { background-color: #05c402; box-shadow: inset 0px -2px 0px #287E27; }
+        .game-memo-buttons a.button-mail { background-color: #cccccc; box-shadow: inset 0px -2px 0px #aeaeae; }
+        .game-memo-buttons a.button-sms { background-color: #62E64F; box-shadow: inset 0px -2px 0px #54B646; }
+        .game-memo-buttons a.button-mobage { background-color: #003f87; box-shadow: inset 0px -2px 0px #141B23; }
+        .game-memo-buttons a:hover, .game-memo-buttons a:active { margin: 2px 0 0 0; box-shadow: none; height: 40px; }
+        </style>
+    </head>
+    <body class="<% if @sp == 1 then %>sp<% end %>">
+        <h1>mobage.gamelist</h1>
+        <div id="game-wrapper">
+        <% @games.each do |game| %>
+        <div class="game-container">
+            <div class="game-header">
+                <div class="game-thumbnail">
+                    <a href="<%= game.url %>" target="_blank"><img class="lazy" src="images/space.png" data-original="<%= game.thumbnailUrl %>"  width="80" heigh="80"></a>
+                </div>
+                <div class="game-title">
+                    <h2 data-id="<%= game.id %>"><a href="<%= game.url %>" target="_blank"><%= game.title %></a></h2>
+                    <p><%= game.catch_copy %></p>
+                </div>
+            </div>
+            <div class="game-image">
+            <% if game.imageUrl != "" then %>
+                <img class="lazy" src="images/space.png" data-original="<%= game.imageUrl %>"  width="300" height="140">
+            <% else %>
+                <div><img class="lazy" src="images/space.png" data-original="<%= game.thumbnailUrl %>"  width="140" heigh="140"></div>
+            <% end %>
+            </div>
+            <div class="game-description">
+                <% if game.description != "" then %>
+                    <%= game.description %>
+                <% else %>
+                    <%= game.catch_copy %>
+                <% end %>
+            </div>
+            <div class="game-genre">
+                <span><%= game.genre %></span>
+            </div>
+            <% if game.sap != "" then %>
+            <div class="game-sap">
+                <%= game.sap %>
+            </div>
+            <% end %>
+            <% if @sp == 1 then %>
+                <% if (@isIOS == 1 && game.ios == 1) || (@isAndroid == 1 && game.android == 1) then %>
+                <div class="game-start">
+                    <a href="<%= game.url %>" class="game-start-button" target="_blank">START</a>
+                </div>
+                <% else %>
+                <div class="game-device"><% if game.ios == 1 %>iOS <% end %><% if game.android == 1 %>Android <% end %><% if game.mobile == 1 %>ケータイ <% end %>対応</div>
+                <% end %>
+                <div class="game-memo-sp">
+                    <div class="game-memo-header">このゲームをメモする</div>
+                    <div class="game-memo-buttons">
+                        <a class="button-twitter" href="http://twitter.com/share?count=horizontal&text=<%= game.title %>&url=<%= game.url %>&via=gamelist" target="_blank">T</a>
+                        <a class="button-line" href="http://line.me/R/msg/text/?<%= ERB::Util.url_encode(game.url) %>" target="_blank">L</a>
+                        <% if @isAndroid == 1 then %>
+                            <a class="button-mobage" href="intent://send_message?message=<%= ERB::Util.url_encode(game.url) %>#Intent;scheme=mocha;package=jp.mbga.a12013467.lite;end" target="_blank">M</a>
+                        <% else %>
+                            <a class="button-sms" href="sms:;body=<%= ERB::Util.url_encode(game.url) %>">SMS</a>
+                        <% end %>
+                        <a class="button-mail" href="mailto:?subject=<%= ERB::Util.url_encode(game.title) %>&amp;body=<%= ERB::Util.url_encode(game.url) %>" target="_blank">Mail</a>
+                    </div>
+                </div>
+            <% else %>
+                <div class="game-url">
+                    <a href="<%= game.url %>" target="_blank"><%= game.url %></a>
+                </div>
+                <div class="game-supports">
+                    <% if game.ios == 1 then %><img src="images/apple.png" width="12"><% end %>
+                    <% if game.android == 1 then %><img src="images/android.png" width="12"><% end %>
+                    <% if game.mobile == 1 then %><img src="images/mobile.png" width="12"><% end %>
+                </div>
+                <div class="game-memo">
+                    <div class="game-memo-header">このゲームをメモする</div>
+                    <div class="game-memo-buttons">
+                        <a class="button-twitter" href="http://twitter.com/share?count=horizontal&text=<%= game.title %>&url=<%= game.url %>&via=gamelist" target="_blank">T</a>
+                        <a class="button-facebook" href="http://www.facebook.com/share.php?u=<%= game.url %>" target="_blank">F</a>
+                        <a class="button-google" href="https://plus.google.com/share?url=<%= game.url %>" target="_blank">G+</a>
+                    </div>
+                </div>
+            <% end %>
+<!--
+            <div class="game-qrcode-wrapper">
+                <div class="game-qrcode" data-url="<%= game.url %>"></div>
+            </div>
+-->
+        </div>
+        <% end %>
+        </div>
+        <script>
+        $(function() {
+            $("img.lazy").lazyload({
+                effect : "fadeIn",
+                effectspeed: 100
+            });
+            $("#game-wrapper").gridalicious({
+                gutter: 10,
+                width: 300,
+                queue: false,
+/*
+                animate: true,
+                animationOprions: {
+                    queue: false,
+                    speed: 200,
+                    duration: 0,
+                    complete: function() {
+                      
+                    }
+                },
+*/
+                selector: ".game-container",
+                complete: function() {
+                    
+                }
+            });
+
+            
+/*
+            $('.game-container').hover(function() {
+                $(this).addClass('on');
+                if ($(this).data('created') != 'yes') {
+                    $(this).data('created', 'yes');
+                    var url = $(this).find('.game-qrcode').data('url');
+                    console.log(url);
+                    $(this).find('.game-qrcode').qrcode({
+                        text: url,
+                        width: 120,
+                        height: 120,
+                        top: 10,
+                        left: 10
+                    });
+                }
+            }, function() {
+                $(this).removeClass('on');
+            });
+*/
+        });
+        </script>
+    </body>
+</html>
